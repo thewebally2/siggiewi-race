@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1761116114689,
+      "tag": "0000_clear_shaman",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1761116230373,
+      "tag": "0001_abandoned_onslaught",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1761123268088,
+      "tag": "0002_lyrical_wallow",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1761274643412,
+      "tag": "0003_material_starjammers",
+      "breakpoints": true
+    }
+  ]
+}

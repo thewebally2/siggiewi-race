@@ -1,0 +1,28 @@
+{
+  "query": "SELECT id, year, title, status FROM raceEditions ORDER BY year DESC",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5otSXyj2JhDnPBE.root --database EfYbWeVURSuSsCZqghqxkY --execute SELECT id, year, title, status FROM raceEditions ORDER BY year DESC",
+  "rows": [
+    {
+      "id": "1",
+      "year": "2025",
+      "title": "Is-Siggiewi End of Year Race 2025",
+      "status": "published"
+    },
+    {
+      "id": "30001",
+      "year": "2024",
+      "title": "Is-Siggiewi End of Year Race 2024",
+      "status": "completed"
+    },
+    {
+      "id": "30002",
+      "year": "2024",
+      "title": "Is-Siggiewi End of Year Race 2024",
+      "status": "completed"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tyear\ttitle\tstatus\n1\t2025\tIs-Siggiewi End of Year Race 2025\tpublished\n30001\t2024\tIs-Siggiewi End of Year Race 2024\tcompleted\n30002\t2024\tIs-Siggiewi End of Year Race 2024\tcompleted\n",
+  "stderr": "",
+  "execution_time_ms": 49
+}

@@ -1,0 +1,18 @@
+{
+  "query": "SELECT COUNT(*) as count, editionId FROM raceResults GROUP BY editionId",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5otSXyj2JhDnPBE.root --database EfYbWeVURSuSsCZqghqxkY --execute SELECT COUNT(*) as count, editionId FROM raceResults GROUP BY editionId",
+  "rows": [
+    {
+      "count": "18",
+      "editionId": "30001"
+    },
+    {
+      "count": "23",
+      "editionId": "30002"
+    }
+  ],
+  "messages": [],
+  "stdout": "count\teditionId\n18\t30001\n23\t30002\n",
+  "stderr": "",
+  "execution_time_ms": 46
+}

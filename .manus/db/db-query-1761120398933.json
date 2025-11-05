@@ -1,0 +1,31 @@
+{
+  "query": "SELECT re.id, re.year, re.title, re.status, COUNT(rr.id) as results_count FROM raceEditions re LEFT JOIN raceResults rr ON re.id = rr.editionId GROUP BY re.id, re.year, re.title, re.status ORDER BY re.year DESC",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5otSXyj2JhDnPBE.root --database EfYbWeVURSuSsCZqghqxkY --execute SELECT re.id, re.year, re.title, re.status, COUNT(rr.id) as results_count FROM raceEditions re LEFT JOIN raceResults rr ON re.id = rr.editionId GROUP BY re.id, re.year, re.title, re.status ORDER BY re.year DESC",
+  "rows": [
+    {
+      "id": "1",
+      "year": "2025",
+      "title": "Is-Siggiewi End of Year Race 2025",
+      "status": "published",
+      "results_count": "0"
+    },
+    {
+      "id": "30002",
+      "year": "2024",
+      "title": "Is-Siggiewi End of Year Race 2024",
+      "status": "completed",
+      "results_count": "23"
+    },
+    {
+      "id": "30001",
+      "year": "2024",
+      "title": "Is-Siggiewi End of Year Race 2024",
+      "status": "completed",
+      "results_count": "18"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tyear\ttitle\tstatus\tresults_count\n1\t2025\tIs-Siggiewi End of Year Race 2025\tpublished\t0\n30002\t2024\tIs-Siggiewi End of Year Race 2024\tcompleted\t23\n30001\t2024\tIs-Siggiewi End of Year Race 2024\tcompleted\t18\n",
+  "stderr": "",
+  "execution_time_ms": 54
+}
