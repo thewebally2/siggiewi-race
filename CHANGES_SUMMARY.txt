@@ -1,0 +1,163 @@
+================================================================================
+SIGGIEWI RACE - VERCEL DEPLOYMENT FIX
+Modified Files Summary
+================================================================================
+
+PROBLEM FIXED:
+- Vercel build was failing with "No Output Directory named dist found" error
+- Configuration was not properly aligned with Vercel's serverless platform
+
+FILES MODIFIED:
+1. vercel.json (NEW/UPDATED)
+2. package.json (UPDATED - build script)
+3. vite.config.ts (NO CHANGES - already correct)
+
+================================================================================
+FILE 1: vercel.json
+================================================================================
+
+WHAT IT DOES:
+Tells Vercel how to build and deploy your application
+
+KEY CHANGES:
+- outputDirectory: Changed from "dist" to "dist/public" (where Vite builds frontend)
+- Added routes configuration to properly handle API requests vs static files
+- Configured serverless function for Express backend
+
+CRITICAL SETTINGS:
+- buildCommand: "pnpm install && pnpm build"
+- outputDirectory: "dist/public"
+- Routes: /api/* goes to Express server, everything else goes to static files
+
+================================================================================
+FILE 2: package.json
+================================================================================
+
+WHAT CHANGED:
+Build script output directory updated
+
+BEFORE:
+  "build": "vite build && esbuild server/_core/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist"
+
+AFTER:
+  "build": "vite build && esbuild server/_core/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist/api"
+
+ALSO UPDATED:
+- "start" script: Changed from "dist/index.js" to "dist/api/index.js"
+- Added "vercel-build" script for Vercel's build process
+
+WHY:
+- Backend bundles to dist/api instead of dist
+- Keeps frontend (dist/public) and backend (dist/api) outputs separate
+- Aligns with Vercel's serverless function expectations
+
+================================================================================
+FILE 3: vite.config.ts
+================================================================================
+
+STATUS: NO CHANGES NEEDED
+This file is already correctly configured to output to dist/public
+
+================================================================================
+HOW TO TEST LOCALLY
+================================================================================
+
+1. Copy the three files to your project root:
+   - vercel.json
+   - package.json
+   - vite.config.ts (optional, for reference)
+
+2. Install dependencies:
+   pnpm install
+
+3. Run the build:
+   pnpm build
+
+4. Verify the output directories:
+   ls -la dist/public/   # Should contain index.html and frontend files
+   ls -la dist/api/      # Should contain index.js (bundled server)
+
+5. Test the production build locally:
+   pnpm start
+   # Visit http://localhost:3000 in your browser
+
+6. Verify everything works:
+   - Homepage loads
+   - Navigation works
+   - Registration form loads
+   - API calls work (check browser console for errors)
+
+================================================================================
+DEPLOYMENT STEPS
+================================================================================
+
+1. Test locally (see above)
+2. Push to GitHub:
+   git add vercel.json package.json
+   git commit -m "Fix Vercel deployment configuration"
+   git push origin main
+
+3. In Vercel Dashboard:
+   - Import your GitHub repository
+   - Set environment variables (see below)
+   - Deploy
+
+4. Set these environment variables in Vercel:
+   - DATABASE_URL (PostgreSQL connection string)
+   - STRIPE_SECRET_KEY (from Stripe dashboard)
+   - STRIPE_PUBLISHABLE_KEY (from Stripe dashboard)
+   - FORMSPREE_FORM_ID (from Formspree)
+   - JWT_SECRET (any random string)
+   - VITE_APP_LOGO (optional, default: /council-logo.png)
+
+================================================================================
+EXPECTED BUILD OUTPUT
+================================================================================
+
+After running "pnpm build", you should see:
+
+dist/
+├── public/                    (Frontend - served as static files)
+│   ├── index.html
+│   ├── council-logo.png
+│   ├── assets/
+│   │   ├── index-xxxxx.js
+│   │   ├── index-xxxxx.css
+│   │   └── ...
+│   └── ...
+└── api/                       (Backend - serverless function)
+    └── index.js               (Bundled Express server)
+
+================================================================================
+COMMON ISSUES & SOLUTIONS
+================================================================================
+
+ISSUE: "No Output Directory named dist found"
+SOLUTION: Verify outputDirectory in vercel.json is "dist/public"
+
+ISSUE: API endpoints return 404
+SOLUTION: Check routes configuration in vercel.json is correct
+
+ISSUE: Build fails with "Cannot find module"
+SOLUTION: Run "pnpm install" to install all dependencies
+
+ISSUE: Database connection fails in production
+SOLUTION: Verify DATABASE_URL is set in Vercel environment variables
+
+ISSUE: Stripe/Formspree not working
+SOLUTION: Check STRIPE_SECRET_KEY and FORMSPREE_FORM_ID are set in Vercel
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+1. Download the three modified files
+2. Test locally with "pnpm build" and "pnpm start"
+3. Push to GitHub
+4. Import repository into Vercel
+5. Set environment variables in Vercel dashboard
+6. Deploy and test in production
+
+For detailed deployment instructions, see VERCEL_DEPLOYMENT_GUIDE.md in your project.
+
+================================================================================
